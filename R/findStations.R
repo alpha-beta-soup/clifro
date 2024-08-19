@@ -479,9 +479,10 @@ cf_find_station = function(...,
     doc_table[[end_date_col]][doc_table[[end_date_col]] == "-"] = format(Sys.Date(), "%d-%m-%Y")
     doc_table[[end_date_col]] = dmy(doc_table[[end_date_col]], tz = "NZ")
   } else {
-    doc_table[[start_date_col]] = dmy(doc_table[[start_date_col]], tz = "NZ")
-    doc_table[[end_date_col]][doc_table[[end_date_col]] == "-"] = format(Sys.Date(), "%d-%m-%Y")
-    doc_table[[end_date_col]] = dmy(doc_table[[end_date_col]], tz = "NZ")
+    # Testing override...
+    doc_table[[start_date_col]] = dmy(doc_table[`Start Date`], tz = "NZ")
+    doc_table[[end_date_col]][doc_table[`End Date`] == "-"] = format(Sys.Date(), "%d-%m-%Y")
+    doc_table[[end_date_col]] = dmy(doc_table[`End Date`], tz = "NZ")
   }
 
   ## Open stations in clifro have end dates less than 4 weeks ago
