@@ -471,19 +471,16 @@ cf_find_station = function(...,
 
   doc_table = tail(html_table(doc, header = TRUE, fill = TRUE), 1)[[1]]
   
-  start_date_col = which(grepl("^Start", names(doc_table)))
-  end_date_col = which(grepl("^End", names(doc_table)))
-  
   if (missing(datatype)) {
-    doc_table[[start_date_col]] = dmy(doc_table[[start_date_col]], tz = "NZ")
-    doc_table[[end_date_col]][doc_table[[end_date_col]] == "-"] = format(Sys.Date(), "%d-%m-%Y")
-    doc_table[[end_date_col]] = dmy(doc_table[[end_date_col]], tz = "NZ")
+    start_date_col = which(grepl("^Start", names(doc_table)))
+    end_date_col = which(grepl("^End", names(doc_table)))
   } else {
-    # Testing override...
-    doc_table[[start_date_col]] = dmy(doc_table[`Start Date`], tz = "NZ")
-    doc_table[[end_date_col]][doc_table[`End Date`] == "-"] = format(Sys.Date(), "%d-%m-%Y")
-    doc_table[[end_date_col]] = dmy(doc_table[`End Date`], tz = "NZ")
+    start_date_col = `Start Date`
+    end_date_col = `End Date`
   }
+  doc_table[[start_date_col]] = dmy(doc_table[[start_date_col]], tz = "NZ")
+  doc_table[[end_date_col]][doc_table[[end_date_col]] == "-"] = format(Sys.Date(), "%d-%m-%Y")
+  doc_table[[end_date_col]] = dmy(doc_table[[end_date_col]], tz = "NZ")
 
   ## Open stations in clifro have end dates less than 4 weeks ago
   span = doc_table[[end_date_col]] %--% now(tzone = "NZ")
