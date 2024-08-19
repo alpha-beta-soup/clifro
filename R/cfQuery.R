@@ -196,10 +196,6 @@ cf_query = function(user, datatype, station, start_date, end_date = now(tz),
   
   if (!quiet)
     message("connecting to CliFlo...")
-  if (nrow(station) > 20){
-    station = station[1:20]
-    message("using the first 20 stations")
-  }
   doc = POST(url = "https://cliflo.niwa.co.nz/pls/niwp/wgenf.genform1_proc",
              query = as.list(c(
                cselect = "wgenf.genform1?fset=defdtype",
