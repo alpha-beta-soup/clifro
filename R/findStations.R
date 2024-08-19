@@ -475,8 +475,8 @@ cf_find_station = function(...,
     start_date_col = which(grepl("^Start", names(doc_table)))
     end_date_col = which(grepl("^End", names(doc_table)))
   } else {
-    start_date_col = `Start Date`
-    end_date_col = `End Date`
+    start_date_col = "Start Date"
+    end_date_col = "End Date"
   }
   doc_table[[start_date_col]] = dmy(doc_table[[start_date_col]], tz = "NZ")
   doc_table[[end_date_col]][doc_table[[end_date_col]] == "-"] = format(Sys.Date(), "%d-%m-%Y")
